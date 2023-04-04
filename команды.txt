@@ -93,5 +93,3 @@ for i in b:
 	i.user_author.username
 
 Post.objects.all().order_by('-rating').values_list('date_creation', 'author', 'rating','title')[:1]
-
-не могу доделать, устал
