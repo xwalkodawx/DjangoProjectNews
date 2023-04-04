@@ -1,0 +1,97 @@
+from newsapp.models import *
+
+u1 = User.objects.create_user(username='Ilya') 
+
+u2 = User.objects.create_user(username='Misha')
+
+Author.objects.create(user_author=u1)
+
+Author.objects.create(user_author=u2)
+
+Category.objects.create(name='Sport')
+
+Category.objects.create(name='Culture') 
+
+Category.objects.create(name='Finance') 
+
+Category.objects.create(name='IT')      
+
+a1 = Author.objects.get(id=1) 
+
+a2 = Author.objects.get(id=2) 
+
+Post.objects.create(author=a1, choice_category='AR', title='1TITLE', text='1TEXT')
+
+Post.objects.create(author=a2, choice_category='AR', title='2TITLE', text='2TEXT') 
+
+Post.objects.create(author=a2, choice_category='NE', title='3TITLE', text='3TEXT') 
+
+Post.objects.get(id=1).post_category.add(Category.objects.get(id=1))
+
+Post.objects.get(id=1).post_category.add(Category.objects.get(id=2)) 
+
+Post.objects.get(id=2).post_category.add(Category.objects.get(id=3))
+  
+Post.objects.get(id=2).post_category.add(Category.objects.get(id=4)) 
+
+Post.objects.get(id=3).post_category.add(Category.objects.get(id=1))
+ 
+Post.objects.get(id=3).post_category.add(Category.objects.get(id=4))
+
+Comment.objects.create(post_through=Post.objects.get(id=1), user_through = Author.objects.get(id=1).user_author, text='fssfsfsfsfsfsfsfsfd') 
+
+Comment.objects.create(post_through=Post.objects.get(id=2), user_through = Author.objects.get(id=1).user_author, text='fssfsfsfsfsfsfsfsfd') 
+
+Comment.objects.create(post_through=Post.objects.get(id=3), user_through = Author.objects.get(id=2).user_author, text='fssfsfsfsfsfsfsfsfd')
+
+Comment.objects.create(post_through=Post.objects.get(id=3), user_through = Author.objects.get(id=1).user_author, text='fssfsfsfsfsfsfsfsfd')
+
+Comment.objects.get(id=1).like()
+
+Comment.objects.get(id=2).like()
+
+Comment.objects.get(id=2).like()
+
+Comment.object.get(id=3).dislike()
+
+Comment.objects.get(id=3).dislike() 
+
+Comment.objects.get(id=3).dislike()
+
+Comment.objects.get(id=3).dislike()
+
+Comment.objects.get(id=3).dislike()
+
+Comment.objects.get(id=3).dislike()
+
+Comment.objects.get(id=3).dislike()
+
+Comment.objects.get(id=4).dislike() 
+
+Post.objects.get(id=1).like() 
+
+Post.objects.get(id=1).like()
+
+Post.objects.get(id=2).like() 
+
+Post.objects.get(id=3).dislike() 
+
+Post.objects.get(id=3).dislike()
+
+uprat = Author.objects.get(id=1)
+
+uprat.update_rating()
+
+uprat1 = Author.objects.get(id=2) 
+
+uprat1.update_rating()  
+
+b = Author.objects.order_by('-rating_author')[:1] 
+
+for i in b:
+	i.rating_author
+	i.user_author.username
+
+Post.objects.all().order_by('-rating').values_list('date_creation', 'author', 'rating','title')[:1]
+
+не могу доделать, устал
