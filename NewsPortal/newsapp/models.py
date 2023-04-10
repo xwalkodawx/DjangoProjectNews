@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
+from django.core.validators import MinValueValidator
 
 
 class Author(models.Model):  # Модель, содержащая объекты всех авторов.
@@ -19,9 +20,15 @@ class Author(models.Model):  # Модель, содержащая объекты
 		self.rating_author = span_post_rating * 3 + span_comm_rating
 		self.save()
 
+	def __str__(self):
+		return str(self.user_author)
+
 
 class Category(models.Model):  # Категории новостей/статей — темы, которые они отражают
 	name = models.CharField(max_length=64, unique=True)
+
+	def __str__(self):
+		return str(self.name)
 
 
 class Post(models.Model):  # Статьи и новости, которые создают пользователи
@@ -45,7 +52,10 @@ class Post(models.Model):  # Статьи и новости, которые со
 		self.save()
 
 	def preview(self):  # Возвращает начало статьи длиной 124 символа и добавляет многоточие в конце
-		return self.text[0:123]+'...'
+		return self.text[0:123] + '...'
+
+	def __str__(self):
+		return f'{self.title} {self.text}'
 
 
 class PostCategory(models.Model):  # Промежуточная модель
@@ -67,3 +77,6 @@ class Comment(models.Model):
 	def dislike(self):
 		self.rating -= 1
 		self.save()
+
+	def __str__(self):
+		return str(self.text)
