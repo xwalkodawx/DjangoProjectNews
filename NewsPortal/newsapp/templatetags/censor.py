@@ -9,3 +9,6 @@ register = template.Library()
 def censor(text):
 	#text.replace(word, '*' * len(censored_word)))
 	return f'{text}'
+
+
+# так и не разобрался 
